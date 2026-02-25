@@ -1,0 +1,20 @@
+{
+    "name": "coopteh/class01",
+    "description": "Это учебный проект группы ИС-231",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Владислав Милевский",
+            "email": "v.milevskiy@coopteh.ru"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "guzzlehttp/guzzle": "^7.10"
+    }
+}
