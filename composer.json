@@ -1,0 +1,17 @@
+{
+    "name": "coopteh/geek",
+    "description": "a very usefull program for blyat searching oshi no ko series with very nice dub aniliberty",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Maslennikov Anton Hovanski"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.10"
+    }
+}
