@@ -8,3 +8,4 @@
 - Войдите в свой аккаунт на github.com и сделайте fork на репу https://github.com/Coopteh/IS231
 - Снимите галочку с "Copy the main branch only"
 ```
+Test
