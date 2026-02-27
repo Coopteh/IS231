@@ -1,24 +1,48 @@
 <?php
-ini_set('default_charset', 'UTF-8');  
+/**
+ * @param string $email 
+ * @return string 
+ * @throws InvalidArgumentException 
+ */
+function validateEmail(string $email): string
+{
+    if (empty(trim($email))) {
+        throw new InvalidArgumentException("Некорректный формат email: адрес не может быть пустым");
+    }
+    
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new InvalidArgumentException("Некорректный формат email: '{$email}' не является валидным адресом");
+    }
+    
+    return "Email корректен";
+}
 
-use App\Routers\Router;
 
-require_once("./vendor/autoload.php");
+$testCases = [
+    "example@example.com",      
+    "not-an-email",             
+    "",                         
+    "user.name+tag@domain.co",  
+    "@invalid.com",             
+    "invalid@.com",             
+];
 
-$user_id=0;
-$user_name=""; 
-$user_role="";
+echo "=== Тестирование функции validateEmail ===\n\n";
 
-// Обновляем глобальные переменные - данными из сессии
-session_start();
-if (isset($_SESSION['user_id']))
-    $user_id = $_SESSION['user_id'];
-if (isset($_SESSION['user_name']))
-    $user_name = $_SESSION['user_name'];
-if (isset($_SESSION['user_role']))
-    $user_role = $_SESSION['user_role'];
+foreach ($testCases as $testEmail) {
+    try {
+        $result = validateEmail($testEmail);
+        echo "✓ Вход: '{$testEmail}'\n";
+        echo "  Результат: {$result}\n\n";
+        
+    } catch (InvalidArgumentException $e) {
+        echo "✗ Вход: '{$testEmail}'\n";
+        echo "  Ошибка: " . $e->getMessage() . "\n\n";
+        
+    } catch (Exception $e) {
+        echo "✗ Вход: '{$testEmail}'\n";
+        echo "  Неожиданная ошибка: " . $e->getMessage() . "\n\n";
+    }
+}
 
-$router = new Router();
-$url = $_SERVER['REQUEST_URI'];
-
-echo $router->route($url);
+echo "=== Тестирование завершено ===\n";

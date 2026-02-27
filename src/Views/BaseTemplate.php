@@ -1,96 +1,87 @@
 <?php
-namespace App\Views;
+namespace src\Views;
 
-class BaseTemplate {  
-    public function getBaseTemplate() {
-        global $user_id, $user_name, $user_role;
-
-        $template = <<<END
+class BaseTemplate
+{
+    protected $title = 'Система учета счетов';
+    
+    protected function renderHeader()
+    {
+        ?>
         <!DOCTYPE html>
         <html lang="ru">
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>%s</title>
-            <link rel="stylesheet" href="https://localhost/css/bootstrap.min.css">
+            <title><?php echo $this->title; ?></title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+            <link rel="stylesheet" href="/css/style.css">
         </head>
         <body>
-        <div class="container">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary mb-2">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Электронный журнал</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container">
+                    <a class="navbar-brand" href="/">
+                        <i class="fas fa-file-invoice"></i> Учет счетов
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="/">Главная</a>
-                    </div>     
-        END;                   
-    if (($user_role == 'student') or ($user_role == 'teacher')) {
-            $template .= <<<SCORE
-                    <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="/marks">Оценки</a>
-                    </div>
-            SCORE;         
-    }
-    if ($user_role == 'teacher') {
-            $template .= <<<SCORE
-                    <div class="navbar-nav">
-                        <a class="nav-link active" aria-current="page" href="/courses">Дисциплины</a>
-                    </div>
-            SCORE;         
-    }    
-        $template .= "</div></div>";
-
-        if ($user_id > 0) {
-                $template .= <<<LINE
-                        <ul class="navbar-nav w-25">
-                            <li class="nav-item">
-                                {$user_name} |
-                            </li>
-                            <li class="nav-item">
-                                &nbsp;
-                            </li>
-                            <li class="nav-item">
-                                <a class="dropdown-item" href="/logout">Выход</a>
-                            </li>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <?php if (isset($_SESSION['user_type'])): ?>
+                                <li class="nav-item">
+                                    <span class="nav-link">
+                                        <i class="fas fa-user"></i> 
+                                        <?php echo $_SESSION['user_name']; ?>
+                                        (<?php echo $_SESSION['user_type'] == 'accountant' ? 'Бухгалтер' : 'Поставщик'; ?>)
+                                    </span>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/logout">
+                                        <i class="fas fa-sign-out-alt"></i> Выход
+                                    </a>
+                                </li>
+                            <?php else: ?>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/login">
+                                        <i class="fas fa-sign-in-alt"></i> Вход
+                                    </a>
+                                </li>
+                            <?php endif; ?>
                         </ul>
-                LINE;
-        } else {
-            $template .= <<<LINE
-                <a class="nav-link p-3" href="/login">
-                Вход
-                </a>
-            LINE;    
-        }
-        $template .= "</nav>";
-
-        $template = self::getSimpleFlash($template);
-        $template .= <<<END
-            %s
-        </div>
+                    </div>
+                </div>
+            </nav>
+            <main class="container mt-4">
+        <?php
+    }
+    
+    protected function renderFooter()
+    {
+        ?>
+            </main>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="/js/script.js"></script>
         </body>
         </html>
-        END;
-        return $template;
+        <?php
     }
-
-    // Добавим flash сообщение
-    public static function getSimpleFlash(string $str): string 
+    
+    protected function showMessages()
     {
-        if (isset($_SESSION['flash'])) {
-            $class_alert = isset($_SESSION['flash_class']) ? $_SESSION['flash_class']: 'alert-info';
-            $str .= <<<END
-                <div id="liveAlertBtn" class="alert {$class_alert} alert-dismissible" role="alert">
-                    <div>{$_SESSION['flash']}</div>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
-                        onclick="this.parentNode.style.display='none';"></button>
-                </div>
-                END;
-            unset($_SESSION['flash']);
-            unset($_SESSION['flash_class']);
-        }
-        return $str;
+        if (isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        <?php endif;
+        
+        if (isset($_SESSION['message'])): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?php echo $_SESSION['message']; unset($_SESSION['message']); ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        <?php endif;
     }
 }

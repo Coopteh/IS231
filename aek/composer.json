@@ -1,0 +1,12 @@
+{
+    "name": "coopteh/izi",
+    "description": "a program",
+    "authors": [
+        {
+            "name": "artem"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.10"
+    }
+}
