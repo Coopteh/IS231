@@ -152,7 +152,7 @@ class AnalyticsModule
     }
 }
 ```
-src\Config\config.php
+Config\config.php
 ```
 <?php
 
