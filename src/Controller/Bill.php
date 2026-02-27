@@ -1,11 +1,13 @@
 <?php
+
 namespace App\Controllers;
 
 use App\Models\BillDBStorage;
 use App\Views\BillTemplate;
 
-class Bill {
-    public function getAll(): string 
+class Bill
+{
+    public function getAll(): string
     {
         $objTemplate = new BillTemplate();
         $storage = new BillDBStorage();
@@ -13,14 +15,16 @@ class Bill {
 
         $template = $objTemplate->getBillTemplate($result);
         return $template;
-    }    
-    
-    public function getForm( $id_rec=0 ) {
+    }
+
+    public function getForm($id_rec = 0)
+    {
         $storage = new BillDBStorage();
-        if ($id_rec > 0)    // это изменение записи
+        if ($id_rec > 0) {    // это изменение записи
             $row = $storage->getRecord($id_rec);
-        else
-            $row = null;    // это вставка данных идет
+        } else {
+            $row = null;
+        }    // это вставка данных идет
         $clients = $storage->getClients();
 
         $objTemplate = new BillTemplate();
@@ -48,6 +52,6 @@ class Bill {
     {
         $storage = new BillDBStorage();
         $result = $storage->deleteBill($id_rec);
-        return $result;    
+        return $result;
     }
 }

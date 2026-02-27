@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Views;
 
-class BaseTemplate {  
-    public function getBaseTemplate() {
+class BaseTemplate
+{
+    public function getBaseTemplate()
+    {
         global $user_id, $user_name, $user_role;
 
         $template = <<<END
@@ -19,25 +22,27 @@ class BaseTemplate {
             <nav class="navbar navbar-expand-lg bg-body-tertiary mb-2">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/">АИС "Учёт Счетов"</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" 
+                    data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" 
+                    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="/">Главная</a>
-                    </div>     
-        END;                   
-    if ($user_id > 0) {
+                    </div>
+        END;
+        if ($user_id > 0) {
             $template .= <<<SCORE
             <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="/bill">Счета</a>
             </div>
-            SCORE;         
-    }
-    $template .= "</div></div>";
+            SCORE;
+        }
+        $template .= "</div></div>";
 
         if ($user_id > 0) {
-                $template .= <<<LINE
+            $template .= <<<LINE
                     <ul class="navbar-nav w-25">
                         <li class="nav-item">
                             {$user_name} ({$user_role}) |
@@ -55,7 +60,7 @@ class BaseTemplate {
                 <a class="nav-link p-3" href="/login">
                 Вход
                 </a>
-            LINE;    
+            LINE;
         }
         $template .= "</nav>";
 
@@ -70,10 +75,10 @@ class BaseTemplate {
     }
 
     // Добавим flash сообщение
-    public static function getSimpleFlash(string $str): string 
+    public static function getSimpleFlash(string $str): string
     {
         if (isset($_SESSION['flash'])) {
-            $class_alert = isset($_SESSION['flash_class']) ? $_SESSION['flash_class']: 'alert-info';
+            $class_alert = isset($_SESSION['flash_class']) ? $_SESSION['flash_class'] : 'alert-info';
             $str .= <<<END
                 <div id="liveAlertBtn" class="alert {$class_alert} alert-dismissible" role="alert">
                     <div>{$_SESSION['flash']}</div>

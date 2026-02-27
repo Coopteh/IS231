@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Views;
 
 use App\Views\BaseTemplate;
 
-class UserTemplate extends BaseTemplate {
-    public function getLoginTemplate(): string 
+class UserTemplate extends BaseTemplate
+{
+    public function getLoginTemplate(): string
     {
         $template = parent::getBaseTemplate();
         $str = '';
@@ -28,7 +30,8 @@ class UserTemplate extends BaseTemplate {
             </div>
 
             <!-- Submit button -->
-            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Войти</button>
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init 
+            class="btn btn-primary btn-block mb-4">Войти</button>
             </form>
             </div>
         </div>
@@ -39,7 +42,7 @@ class UserTemplate extends BaseTemplate {
     }
 
 
-    public function getUsersTemplate($rows): string 
+    public function getUsersTemplate($rows): string
     {
         $template = parent::getBaseTemplate();
         $str = '';
@@ -60,7 +63,7 @@ class UserTemplate extends BaseTemplate {
         <tbody>
         END;
 
-        foreach($rows as $row)
+        foreach ($rows as $row) {
             $str .= <<<LINE
                 <tr>
                 <td>{$row['id']}</td>
@@ -68,10 +71,11 @@ class UserTemplate extends BaseTemplate {
                 <td>{$row['role']}</td>
                 </tr>
             LINE;
+        }
 
         $str .= <<<END
                 </tbody>
-            </table>        
+            </table>
             </div>
         </div>
         <script src="https://localhost/js/bootstrap.bundle.min.js" type="text/javascript"></script>
@@ -80,7 +84,7 @@ class UserTemplate extends BaseTemplate {
         return $resultTemplate;
     }
 
-    public function getFormTemplate() 
+    public function getFormTemplate()
     {
         $template = parent::getBaseTemplate();
         $str = '';
@@ -109,13 +113,14 @@ class UserTemplate extends BaseTemplate {
                 </div>
 
                 <!-- Submit button -->
-                <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Добавить</button>
+                <button type="submit" data-mdb-button-init data-mdb-ripple-init 
+                class="btn btn-primary btn-block mb-4">Добавить</button>
             </form>
             </div>
         </div>
         <script src="https://localhost/js/bootstrap.bundle.min.js" type="text/javascript"></script>
         END;
         $resultTemplate =  sprintf($template, 'Добавление пользователя', $str);
-        return $resultTemplate;   
+        return $resultTemplate;
     }
 }
