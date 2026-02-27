@@ -9,7 +9,13 @@
 запустите Git Bash
 перейдите в каталог c:/xampp/htdocs
 > cd c:/xampp/htdocs
+
 Сделайте Sync fork в своем репозитории IS231 для форкнутой репы из Coopteh/IS231
+и настроим обновление веток в терминале
+> git remote add coopteh https://github.com/Coopteh/IS231.git
+получим обновления веток с оригинального репозитория (на coopteh)
+> git fetch coopteh
+
 выполните в bash терминале
 > git pull
 переключитесь на ветку task2502
