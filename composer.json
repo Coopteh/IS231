@@ -1,5 +1,5 @@
 {
-    "name": "student/project",
+    "name": "student/htdocs",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -7,16 +7,11 @@
     },
     "authors": [
         {
-            "name": "comp4",
-            "email": "v.milevskiy@coopteh.ru"
+            "name": "artekez",
+            "email": "artekez@vk.com"
         }
     ],
-    "require": {
-        "guzzlehttp/guzzle": "^7.10"
-    },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^4.0",
-        "phpstan/phpstan": "^2.1",
-        "friendsofphp/php-cs-fixer": "^3.94"
+        "phpunit/phpunit": "^11.5"
     }
 }
