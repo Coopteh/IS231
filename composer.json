@@ -1,0 +1,11 @@
+
+{
+    "name" : "goida/goida", 
+    "description": "Это учебный проект группы ИС-231",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
