@@ -1,0 +1,27 @@
+<?php
+
+$jsonFile = 'customers.json';
+$jsonData = file_get_contents($jsonFile);
+$data = json_decode($jsonData, true);
+
+$dsn = 'mysql:host=localhost;dbname=json_to_db;charset=utf8mb4';
+$user = 'root';
+$pass = '';
+
+$pdo = new PDO($dsn, $user, $pass);
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$sql = "INSERT INTO db (id, name, inn, adres, phone, is_salesman, is_buyer) VALUES (:id, :name, :inn, :addres, :phone, :is_salesman, :is_buyer)";
+$stmt = $pdo->prepare($sql);
+
+foreach ($data as $item) {
+    $stmt->execute([
+        ':id' => $item['id'],
+        ':name' => $item['name'],
+        ':inn' => $item['inn'],
+        ':addres' => $item['adres'],
+        ':phone' => $item['phone'],
+        ':is_salesman' => $item['salesman'],
+        ':is_buyer' => $item['buyer']
+    ]);
+}
