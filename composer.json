@@ -7,11 +7,9 @@
     },
     "authors": [
         {
-            "name": "Роман",
-            "email": "v.milevskiy@coopteh.ru"
+            "name": "kasll14",
+            "email": "toni.maslennikov.08@inbox.ru"
         }
     ],
-    "require-dev": {
-        "phpunit/phpunit": "^11.5"
-    }
+    "require": {}
 }
