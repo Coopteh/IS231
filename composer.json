@@ -1,0 +1,9 @@
+{
+    "name": "student/is231",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}
