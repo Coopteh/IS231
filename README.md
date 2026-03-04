@@ -1,6 +1,6 @@
 ## Методы модульного тестирования по белому ящику
 
-Видео по теме https://www.youtube.com/watch?v=hkQYCFjHXf0
+Видео по теме https://www.youtube.com/watch?v=hkQYCFjHXf0  
 Предварительная работа с git
 ```
 запустите Git Bash
