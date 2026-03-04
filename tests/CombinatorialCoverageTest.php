@@ -4,10 +4,6 @@ namespace Tests;
 use App\DiscountService;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Тесты для достижения комбинаторного покрытия условий
- * Все возможные комбинации значений атомарных условий
- */
 class CombinatorialCoverageTest extends TestCase
 {
     private DiscountService $service;
@@ -17,9 +13,6 @@ class CombinatorialCoverageTest extends TestCase
         $this->service = new DiscountService();
     }
 
-    // =================================================================
-    // КОМБИНАЦИИ для: if ($amount > 1000 && $isVip)
-    // =================================================================
     
     public function testCombinatorial_AmountOver1000_True_IsVip_True(): void
     {
@@ -45,9 +38,7 @@ class CombinatorialCoverageTest extends TestCase
         $this->assertEquals(0.0, $result);
     }
 
-    // =================================================================
-    // КОМБИНАЦИИ для: if ($age > 60 || $isVip) [внутри elseif]
-    // =================================================================
+
     
     public function testCombinatorial_AgeOver60_True_IsVip_True_WithinElseIf(): void
     {
@@ -73,24 +64,11 @@ class CombinatorialCoverageTest extends TestCase
         $this->assertEquals(0.0, $result);
     }
 
-    // =================================================================
-    // Граничные значения (ИСПРАВЛЕНО)
-    // =================================================================
-    
-    /**
-     * Граничное значение: amount = 1000.0
-     * $amount > 1000 → false, но $amount > 500 → true
-     * Поэтому выполняется вложенное условие с isVip=true → 10%
-     */
     public function testBoundary_AmountExactly1000(): void
     {
         $result = $this->service->calculate(30, true, 1000.0);
         $this->assertEquals(0.10, $result, 'При amount=1000 и isVip=true срабатывает вложенное условие → 10%');
     }
-
-    /**
-     * Граничное значение: amount = 1000.0 без скидки
-     */
     public function testBoundary_AmountExactly1000_NoDiscount(): void
     {
         $result = $this->service->calculate(30, false, 1000.0);

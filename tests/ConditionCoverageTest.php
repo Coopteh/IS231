@@ -4,10 +4,7 @@ namespace Tests;
 use App\DiscountService;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Тесты для достижения покрытия условий (Condition Coverage)
- * Каждое булево подвыражение проверяется на true и false
- */
+
 class ConditionCoverageTest extends TestCase
 {
     private DiscountService $service;
@@ -17,9 +14,7 @@ class ConditionCoverageTest extends TestCase
         $this->service = new DiscountService();
     }
 
-    // =================================================================
-    // УСЛОВИЕ 1: $amount <= 0
-    // =================================================================
+
     
     public function testCondition_AmountLessOrEqualZero_True(): void
     {
@@ -33,9 +28,7 @@ class ConditionCoverageTest extends TestCase
         $this->assertIsFloat($result);
     }
 
-    // =================================================================
-    // УСЛОВИЕ 2: $amount > 1000
-    // =================================================================
+
     
     public function testCondition_AmountOver1000_True(): void
     {
@@ -49,9 +42,7 @@ class ConditionCoverageTest extends TestCase
         $this->assertEquals(0.10, $result);
     }
 
-    // =================================================================
-    // УСЛОВИЕ 3: $isVip (в составном && первого if)
-    // =================================================================
+
     
     public function testCondition_IsVip_True_InFirstCondition(): void
     {
@@ -65,9 +56,7 @@ class ConditionCoverageTest extends TestCase
         $this->assertEquals(0.0, $result);
     }
 
-    // =================================================================
-    // УСЛОВИЕ 4: $amount > 500
-    // =================================================================
+
     
     public function testCondition_AmountOver500_True(): void
     {
@@ -81,9 +70,7 @@ class ConditionCoverageTest extends TestCase
         $this->assertEquals(0.0, $result);
     }
 
-    // =================================================================
-    // УСЛОВИЕ 5: $age > 60
-    // =================================================================
+
     
     public function testCondition_AgeOver60_True(): void
     {
@@ -97,9 +84,6 @@ class ConditionCoverageTest extends TestCase
         $this->assertEquals(0.0, $result);
     }
 
-    // =================================================================
-    // УСЛОВИЕ 6: $isVip (в составном || вложенного if)
-    // =================================================================
     
     public function testCondition_IsVip_True_InNestedCondition(): void
     {
