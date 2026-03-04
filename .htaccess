@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# Если запрос идет напрямую к public, убираем префикс
+RewriteCond %{THE_REQUEST} /public/([^\s?]*) [NC]
+RewriteRule ^ %1 [L,NE,R=302]
+
+# Все остальные запросы перенаправляем в public
+RewriteRule ^((?!public/).*)$ public/$1 [L,NC]
