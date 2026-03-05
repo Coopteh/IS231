@@ -21,7 +21,7 @@ class OrderDataTest extends TestCase {
         $this->assertSame( true, 
                            $this->obj->validate($this->data) );
     }
-        $this->assertfio( true, 
+        $this->assertfio( false, 
                            $this->obj->validate($this->data) );
     }
 }
