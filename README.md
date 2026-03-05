@@ -3,6 +3,7 @@
 Видео по теме   
 Как открыть и ПРАВИЛЬНО закрыть issues // Что такое issues и зачем это нужно? - https://www.youtube.com/watch?v=wR3gXOiRm10  
 #1 Создание блога. GitHub issue Github Milestones. Джедай Web Разработки - https://www.youtube.com/watch?v=6g33Q_l0p1I  
+Issues and Projects in GitHub - https://www.youtube.com/watch?v=fFrq28RY1SQ&t=7s  
 
 Практическая работа по теме «Работа с issues на GitHub.com»  
 
