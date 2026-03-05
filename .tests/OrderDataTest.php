@@ -18,7 +18,17 @@ class OrderDataTest extends TestCase
         // Объект класса ValidateOrderData
         $this->obj = new ValidateOrderData();
     }
+    public function testInvalidFIO(): void {
+    // Изменяем поле 'fio' на некорректное значение
+    $invalidData = $this->data;
+    $invalidData['fio'] = ""; // пустое ФИО
 
+    // Проверяем, что метод validate вернет false
+    $this->assertFalse(
+        $this->obj->validate($invalidData),
+        "Метод должен возвращать false при передаче неверного ФИО"
+    );
+}
     public function testValidateOrderData(): void {
         $this->assertSame( true, 
                            $this->obj->validate($this->data) );
