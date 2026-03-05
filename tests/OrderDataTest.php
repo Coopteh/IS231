@@ -19,8 +19,25 @@ class OrderDataTest extends TestCase
         $this->obj = new ValidateOrderData();
     }
 
-    public function testValidateOrderData(): void {
-        $this->assertSame( true, 
-                           $this->obj->validate($this->data) );
+    /**
+     * Тестируем проверку правильных данных заказа
+     */
+    public function testValidateOrderDataWithValidData(): void {
+        $this->assertTrue(
+            $this->obj->validate($this->data)
+        );
+    }
+    
+    /**
+     * Проверяем обработку некорректного ФИО (например, пустое значение)
+     */
+    public function testInvalidFIO(): void {
+        $invalidData = $this->data;
+        $invalidData['fio'] = ''; // Некорректное значение поля FIO
+        
+        $this->assertFalse(
+            $this->obj->validate($invalidData),
+            'Метод должен возвращать false при передаче неверного значения'
+        );
     }
 }
