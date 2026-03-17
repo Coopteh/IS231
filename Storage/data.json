@@ -2,36 +2,36 @@
   {
     "id": 1,
     "name": "Пицца 1",
-    "image": "./assets/images/image1.png",
+    "image": "./assets/img/pizza01.jpg",
     "description": "Это наша фирменная пицца, она состоит из куриного мяса, сосисок, грибов и 2 сортов сыра (пармезана и моцареллы)",
-    "price": 550
+    "price": 650
   },
   {
     "id": 2,
     "name": "Пицца 2",
-    "image": "./assets/images/image2.png",
+    "image": "./assets/img/pizza02.jpg",
     "description": "Это знаменитая пицца с колбасой и сыром",
-    "price": 450
-  }
+    "price": 850
+  },
   {
     "id": 3,
     "name": "Пицца 3",
-    "image": "./assets/images/image1.png",
+    "image": "./assets/img/pizza03.jpg",
     "description": "Это наша фирменная пицца, она состоит из куриного мяса, сосисок, грибов и 2 сортов сыра (пармезана и моцареллы)",
-    "price": 550
+    "price": 450
   },
   {
     "id": 4,
     "name": "Пицца 4",
-    "image": "./assets/images/image1.png",
+    "image": "./assets/img/image1.png",
     "description": "Это наша фирменная пицца, она состоит из куриного мяса, сосисок, грибов и 2 сортов сыра (пармезана и моцареллы)",
-    "price": 550
+    "price": 750
   },
   {
     "id": 5,
     "name": "Пицца 5",
-    "image": "./assets/images/image1.png",
+    "image": "./assets/img/image1.png",
     "description": "Это наша фирменная пицца, она состоит из куриного мяса, сосисок, грибов и 2 сортов сыра (пармезана и моцареллы)",
-    "price": 550
+    "price": 950
   }
 ]

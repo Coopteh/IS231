@@ -7,30 +7,21 @@ use App\Views\ProductTemplate;
 class ProductController
 {
     public function get($id): string 
-{
-    $model = new Product();
-    $data = $model->loadData();
-    if ($id)
-        $data = $data[$id];
-    return ProductTemplate::getCardTemplate($data);
-}
-    // public function get($id): string 
-    // {
-    //     $model = new Product();
-    //     $data = $model->loadData();
+    {
+        $model = new Product();
+        $allData = $model->loadData();
         
-    //     if ($data && isset($data[$id])) {
-           
-    //         $product = null;
-    //         foreach ($data as $item) {
-    //             if ($item['id'] == $id) {
-    //                 $product = $item;
-    //                 break;
-    //             }
-    //         }
-    //         return ProductTemplate::getCardTemplate($product);
-    //     }
-        
-    //     return ProductTemplate::getCardTemplate(null);
-    // }
+        // Ищем товар по ID (учитываем, что массив может быть с ключами 0, 1, а ID товара 1, 2)
+        $productData = null;
+        if ($allData) {
+            foreach ($allData as $item) {
+                if ($item['id'] == $id) {
+                    $productData = $item;
+                    break;
+                }
+            }
+        }
+
+        return ProductTemplate::getCardTemplate($productData ?? []);
+    }
 }

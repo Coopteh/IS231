@@ -1,69 +1,84 @@
 <?php
 namespace App\Views;
-class ProductTemplate extends BaseTemplate
+
+// Если BaseTemplate нужен только для наследования, оставьте. 
+// Если нет - можно убрать extends и сделать класс обычным.
+use App\Views\BaseTemplate; 
+
+class ProductTemplate // Можно убрать extends BaseTemplate, если не используете его методы
 {
-    public static function getTemplate():string{
-        $template = parent::getTemplate();
-        $title= 'Главная страница';
-        $content = <<<HTML
+    public static function getCardTemplate(array $data): string
+    {
+        // Если данных нет, возвращаем сообщение об ошибке
+        if (empty($data)) {
+            return self::renderPage("<h1>Товар не найден</h1>");
+        }
 
-            <div class="h-50 w-50 mx-auto">        
-                <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner" style="height:65vh;">
-                        <div class="carousel-item active">
-                        <img src="../../assets/img/pizza01.jpg" class="d-block w-100 h-100" alt="loading">
-                        </div>
-                        <div class="carousel-item">
-                        <img src="../../assets/img/pizza02.jpg" class="d-block w-100 h-100 " alt="loading">
-                        </div>
-                        <div class="carousel-item">
-                        <img src="../../assets/img/pizza03.jpg" class="d-block w-100 h-100" alt="loading">
+        $name = htmlspecialchars($data['name']);
+        $price = number_format($data['price'], 0, '.', ' ');
+        $desc = htmlspecialchars($data['description']);
+        $img = htmlspecialchars($data['image']);
+
+        // HTML код самой карточки
+        $cardHtml = "
+        <div class='container mt-5'>
+            <div class='card mb-3' style='max-width: 900px; margin: 0 auto;'>
+                <div class='row g-0'>
+                    <div class='col-md-4'>
+                        <img src='$img' class='img-fluid rounded-start' alt='$name' style='object-fit: cover; height: 100%; min-height: 300px;'>
+                    </div>
+                    <div class='col-md-8'>
+                        <div class='card-body'>
+                            <h2 class='card-title'>$name</h2>
+                            <p class='card-text lead'>$desc</p>
+                            <hr>
+                            <h3 class='text-primary'>$price ₽</h3>
+                            <button class='btn btn-success btn-lg mt-3'>Добавить в корзину</button>
+                            <a href='/' class='btn btn-secondary btn-lg mt-3 ms-2'>На главную</a>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                    </div>
+                </div>
             </div>
-        </section>
-        <main class="row">
-            <div class="p-5">
-                <p>Здесь можно заказать пиццу с доставкой по городу Кемерово.</p>
-                <p>Широкий ассортимент, низкие цены, быстрая доставка!</p>
-            </div>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        </main>    
+        </div>
+        ";
 
-        HTML;
-        $resultTemplate =  sprintf($template, $title, $content);
-        return $resultTemplate;
+        // Возвращаем полную страницу
+        return self::renderPage($cardHtml);
     }
-}
-{
-    public static function getCardTemplate():string{
-        $template = parent::getTemplate();
-        $title= 'Главная страница';
-        $content = <<<HTML
-    <div class="card mb-3" style="max-width: 540px;">
-  <div class="row g-0">
-    <div class="col-md-4">
-      <img src="..." class="img-fluid rounded-start" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">Заголовок карточки</h5>
-        <p class="card-text">Это более широкая карточка с вспомогательным текстом ниже в качестве естественного перехода к дополнительному контенту. Этот контент немного длиннее.</p>
-        <p class="card-text"><small class="text-body-secondary">Последнее обновление 3 мин. назад</small></p>
-      </div>
-    </div>
-  </div>
-</div>
-$resultTemplate =  sprintf($template, $title, $content);
-        return $resultTemplate;
+
+    // Вспомогательный метод для сборки полной HTML страницы
+    private static function renderPage(string $content): string
+    {
+        return <<<HTML
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карточка товара</title>
+    <!-- Подключаем Bootstrap (пути могут отличаться, проверьте свои) -->
+    <link href="/pizza221/assets/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">Pizza Shop</a>
+        </div>
+    </nav>
+
+    <main>
+        $content
+    </main>
+
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="container p-4">
+            <p class="text-muted">© 2026 Pizza Shop</p>
+        </div>
+    </footer>
+    
+    <script src="/pizza221/assets/js/bootstrap.bundle.js"></script>
+</body>
+</html>
+HTML;
     }
 }
