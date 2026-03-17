@@ -31,6 +31,9 @@ class BaseTemplate{
                         <li class="nav-item">
                          <a class="nav-link active" aria-current="page" href="/about">О нас</a>
                         </li>
+                        <li class="nav-item">
+                         <a class="nav-link active" aria-current="page" href="/products">Каталог</a>
+                        </li>
                     </ul>
                     </div>
                 </div>

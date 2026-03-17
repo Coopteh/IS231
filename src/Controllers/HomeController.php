@@ -1,9 +1,9 @@
 <?php
-namespace App\Controller;
-
+namespace App\Controllers;
 use App\Views\HomeTemplate;
-class HomeController{
-    public static function get(): string 
+
+class HomeController {
+    public function get(): string 
     {
         return HomeTemplate::getTemplate();
     }

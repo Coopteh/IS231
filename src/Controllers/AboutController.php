@@ -1,7 +1,7 @@
 <?php
-namespace App\Controller;
-
+namespace App\Controllers;
 use App\Views\AboutTemplate;
+
 class AboutController {
     public function get(): string 
     {
