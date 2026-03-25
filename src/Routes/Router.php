@@ -5,6 +5,7 @@ use App\Controllers\AboutController;
 use App\Controllers\HomeController;
 use App\Controllers\ProductController;
 use App\Controllers\BasketController;
+use App\Controllers\OrderController;
 
 class Router {
     public function route(string $url): string {
@@ -25,6 +26,9 @@ class Router {
                 $prevUrl = $_SERVER['HTTP_REFERER'];
                 header("Location: {$prevUrl}");
                 return "";
+            case "order":
+                $order = new OrderController();
+                return $order->get();
             default:
                 $home = new HomeController();
                 return $home->get();

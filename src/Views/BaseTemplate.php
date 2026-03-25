@@ -19,9 +19,9 @@ class BaseTemplate {
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                    <img src="/../../asserts/img/logo.jpg" alt="Logo" width="52" height="52" class="d-inline-block align-text-top">
+                    <img src="/../../assets/img/logo.jpg" alt="Logo" width="52" height="52" class="d-inline-block align-text-top">
                     </a>
-                    <a class="navbar-brand logo-font" href="#">Пиццерия ИС-231</a>                    
+                    <a class="navbar-brand logo-font" href="#">Пиццерия</a>                    
                     <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -32,6 +32,9 @@ class BaseTemplate {
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/products">Каталог</a>
+                        </li>
+                          <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/order">Заказ</a>
                         </li>
                     </ul>
                     </div>
