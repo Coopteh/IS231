@@ -1,55 +1,57 @@
 <?php
-
 namespace App\Views;
 
-class OrderTemplate 
-{
-    public function getOrderTemplate(array $data): string
-    {
-        // Начинаем формирование HTML
-        $html = '<h1>Создание заказа</h1>';
-        $all_sum = 0;
+
+class OrderTemplate extends BaseTemplate {
+
+    // public static function getTemplate(string $content = ''): string {
+    //     $content = <<<HTML
+    //         <section>
+    //         <div style="display: flex; justify-content: center;" width="100%">
+    //             <h1>СТРАНИЦА В РАБОТЕ. НЕ СМОТРЕТЬ!</h1>
+    //         </div>
+    //         <div style="display: flex; justify-content: center;" width="100%">
+    //             <img src="/assets/img/keep_out.png" class="d-block w-100 h-150" alt="...">
+    //         </div>
+    //         <div style="display: flex; justify-content: center;" width="100%">
+    //             <img src="/assets/img/card5.png" class="d-block w-100 h-150" alt="...">
+    //         </div>
+    //         </section>
+    //     HTML;
         
-        // Исправлено: $data вместо $products
-        foreach ($data as $product) {
-            $name = $product['name'];
-            $price = $product['price'];
-            // Исправлено: .. на корректное обращение к массиву
-            $quantity = $product['quantity'];
+    //     return parent::getTemplate($content);
+    // }
+    public static function getOrderTemplate(array $arr): string {
+        $all_sum=0;
+        $products = $arr;
+        
+        $content = '<main class="row">
+            <h3 class="mb-5">Корзина</h3></main>';
+        foreach ($products as $product) {
+            $name = $product['name'] ?? "Товар #{$product}"; 
+            $price = $product['price'] ?? 0; // Цены нет в сессии
+            $quantity = $product['quantity'] ?? 1;
+
+
             $sum = $price * $quantity;
             $all_sum += $sum;
-            // Исправлено: используем $html и корректный хередок
-            $html .= <<<LINE
-                <div class="row">
-                    <div class="col-6">
-                        {$name}
-                    </div>
-                    <div class="col-2">
-                        {$quantity} ед. x {$price} руб.
-                    </div>
-                    <div class="col-2">
-                        {$sum} ₽
-                    </div>
+
+            $content .= <<<HTML
+            <div class="row">
+                <div class="col-6">
+                {$name}
                 </div>
-LINE; 
-                    if ($all_sum > 0) {
-            $html .= <<<LINE
-                <div class="row total">
-                    <div class="col-12">
-                        <strong>Итого к оплате: {$all_sum} ₽</strong>
-                    </div>
+                <div class="col-2">
+                {$quantity} ед. x {$price} руб.
                 </div>
-LINE;
-                    } else {
-            $html .= <<<LINE
-                <div class="row">
-                    <div class="col-12">
-                        - нет добавленных товаров -
-                    </div>
+                <div class="col-2">
+                {$sum} ₽
                 </div>
-LINE;                 
-                $html .= <<<LINE
-                    <div class="row">
+            </div>
+            HTML;
+	        }
+            $content .= <<<HTML
+            <div class="row">
                     <div class="col-6">
                          
                     </div>
@@ -58,14 +60,36 @@ LINE;
                         <button type="submit" class="btn btn-secondary mt-3">Очистить корзину
                         </form>
                     </div>
-                </div>    
-LINE;    
-        } //Закрываем foreach
-
-                
-        $html .= "<div class='total'><strong>Итого: {$all_sum} ₽</strong></div>";
-        
-        return $html;
-            }
-}       
+                </div> 
+            HTML;
+        if ($all_sum == 0) {
+            $content .= <<<HTML
+            <div class="row">
+                <div class="col-12">
+                - нет добавленных товаров -
+                </div>
+            </div>
+            HTML;
+        }
+        $content .= <<<HTML
+        <section>
+            <form action="/order" method="POST">
+                <div class="mb-3">
+                    <label for="fio" class="form-label">ФИО</label>
+                    <input type="name" name ="fio" class="form-control" id="fio">
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label">Адресс</label>
+                    <input type="address" name ="address" class="form-control" id="address">
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Телефон</label>
+                    <input type="phone" name ="phone" class="form-control" id="phone">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        <section>
+        HTML;
+        return parent::getTemplate($content);
+    }
 }
