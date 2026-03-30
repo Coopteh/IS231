@@ -61,34 +61,22 @@ class Product {
         $handle = fopen($nameFile, "w");
         fwrite($handle, $json);
         fclose($handle);
-
+    }
         // Тестовые данные
-        $form_data = [
-            'name' => 'Тест',
-            'email' => 'test@example.com',
-            'phone' => '+79990000000',
-            'address' => 'ул. Тестовая, 1',
-            'delivery_method' => 'pickup' // бесплатная доставка
-        ];
+        public function prepareData(array $form_data,array $basket_data){
+            $arr = [];
+            $arr['fio'] = $form_data['fio'];
+            $arr['address'] = $form_data['address'];
+            $arr['phone'] = $form_data['phone'];
+            $arr['created_at'] = date("d-m-Y H:i:s");   
 
-        $basket_data = [
-            ['id' => 1, 'name' => 'Товар 1', 'price' => 350, 'quantity' => 2], // 350 × 2 = 700
-            ['id' => 2, 'name' => 'Товар 2', 'price' => 500, 'quantity' => 1]  // 500 × 1 = 500
-        ];
-
-        // Запуск теста
-        $model = new Product();
-        $arr = $model->prepareData($form_data, $basket_data);
-
-        // Проверка суммы: 700 + 500 = 1200 (без доставки)
-        // Если доставка = 100, то 1200 + 100 = 1300
-        echo "Сумма товаров: " . $arr['total'] . "\n";        // 1200
-        echo "Доставка: " . $arr['delivery_cost'] . "\n";     // 100 (если настроена)
-        echo "Итого: " . $arr['all_sum'] . "\n";              // 1300 ✓
-
-        // Assert
-        assert($arr['all_sum'] === 1300, 'Ошибка расчёта суммы заказа');
+            $arr['products'] = $basket_data;
+            $all_sum = 0;
+            foreach($basket_data as $product){
+                $all_sum += $product['price'] * $product['quantity'];
+            }
+            $arr['all_sum'] = $all_sum;
+            return $arr;
         }
-            
-
-}
+                
+    }
