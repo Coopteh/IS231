@@ -1,0 +1,45 @@
+:root {
+    --primary-color: #e50914;
+    --bg-color: #141414;
+    --card-bg: #1f1f1f;
+    --text-color: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+/* Логотип с эффектом свечения */
+.logo {
+    text-shadow: 0 0 10px var(--primary-color), 0 0 20px var(--primary-color);
+}
+
+.logo span {
+    color: var(--primary-color);
+}
+
+/* Эффект при наведении на ссылки навигации */
+.hover-danger:hover {
+    color: var(--primary-color) !important;
+}
+
+/* Карточка фильма */
+.movie-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(229, 9, 20, 0.3);
+}
+
+/* Карусель */
+#cinemaCarousel .carousel-caption {
+    bottom: 20%;
+}
+
+#cinemaCarousel h5 {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
