@@ -68,6 +68,7 @@ class Product {
             $arr['fio'] = $form_data['fio'];
             $arr['address'] = $form_data['address'];
             $arr['phone'] = $form_data['phone'];
+             $arr['email'] = $form_data['email'];
             $arr['created_at'] = date("d-m-Y H:i:s");   
 
             $arr['products'] = $basket_data;

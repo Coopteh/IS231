@@ -46,7 +46,7 @@ class ProductTest extends TestCase
         // Ожидаемая сумма: (100 * 2) + (250.50 * 3) = 200 + 751.50 = 951.50
         $expectedSum = 951.50;
 
-        $this->assertEquals($expectedSum, $result['all_sum'], 'Общая сумма заказа рассчитана неверно', 0.01);
+        $this->assertEquals($expectedSum, $result['all_sum'], 'Общая сумма заказа рассчитана неверно');
     }
 
     /**
