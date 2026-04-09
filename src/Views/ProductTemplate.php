@@ -115,33 +115,33 @@ class ProductTemplate extends BaseTemplate {
         </div>
     HTML);
     // LEGACY DISPLAY
-    // $template = parent::getTemplate('<h1>НЕТАНЬЯХУ</h1>');
-    // $title= 'Каталог';
-    // $content = 'здесь будет контент главной страницы';
-    // $resultTemplate =  sprintf($template, $title, $card);
-    // return $resultTemplate;
+    $template = parent::getTemplate('<h1>НЕТАНЬЯХУ</h1>');
+    $title= 'Каталог';
+    $content = 'здесь будет контент главной страницы';
+    $resultTemplate =  sprintf($template, $title, $card);
+    return $resultTemplate;
     // LEGACY CARD
-        //     <<<HTML
-        //     <div class="container py-5">
-        //     <div class="row justify-content-center">
-        //         <div class="col-lg-10 col-xl-9">
-        //             <div class="card mb-3" style="max-width: 540px;">
-        //                 <div class="row g-0">
-        //                     <div class="col-md-4">
-        //                         <img src="$image" class="img-fluid rounded-start" alt="...">
-        //                     </div>
-        //                     <div class="col-md-8">
-        //                         <div class="card-body">
-        //                             <h4 class="card-title">$title </h4>
-        //                             <p class="card-text">$description</p>
-        //                             <p class="card-text"><small class="text-body-secondary">$price</small></p>
-        //                         </div>
-        //                     </div>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>
-        // </div>
-        // HTML;
+            <<<HTML
+            <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-10 col-xl-9">
+                    <div class="card mb-3" style="max-width: 540px;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="$image" class="img-fluid rounded-start" alt="...">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h4 class="card-title">$title </h4>
+                                    <p class="card-text">$description</p>
+                                    <p class="card-text"><small class="text-body-secondary">$price</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        HTML;
     }
 }

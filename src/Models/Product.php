@@ -1,16 +1,36 @@
 <?php
 namespace App\Models;
 use App\Config\Config;
+use App\Services\ILoadStorage;
+use App\Services\ISaveStorage;
+use App\Services\IStorage;
+
 
 class Product {
-    public function loadData(): ?array {
-        
-        $file = file_get_contents(Config::FILE_DATA);
-        $data = json_decode($file, true);
 
-        return $data;
+    private IStorage $dataStorage;
+    private string $nameResourceLoad;
+    private string $nameResourceSave;
+    
+
+public function __construct(IStorage $service, string $nameLoad, string $nameSave) 
+{
+    $this->dataStorage = $service;
+    $this->nameResourceLoad = $nameLoad;
+    $this->nameResourceSave = $nameSave;
+}
+    // Внедряем зависимость через конструктор
+    
+    public function loadData(): ?array {
+        return $this->dataStorage->loadData( $this->nameResourceLoad ); 
     }
+
+    public function saveData($arr): bool {
+        return $this->dataStorage->saveData( $this->nameResourceSave, $arr ); 
+    }
+
     public function getBasketData(): array {
+        // проверка корзины на существование
         if (!isset($_SESSION['basket'])) {
             $_SESSION['basket'] = [];
         }
@@ -43,32 +63,13 @@ class Product {
         }
 	return $basketProducts;
         }
-        public function saveData($arr) {
-        $nameFile= Config::FILE_ORDERS;
-
-        $handle = fopen($nameFile, "r");
-        if (filesize($nameFile) > 0){ 
-            $data = fread($handle, filesize($nameFile)); 
-            $allRecords = json_decode($data, true); 
-        } else {
-            $allRecords = [];
-        }
-        fclose($handle);
-        
-        $allRecords[]= $arr;
-        $json = json_encode($allRecords, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
-
-        $handle = fopen($nameFile, "w");
-        fwrite($handle, $json);
-        fclose($handle);
-    }
         // Тестовые данные
         public function prepareData(array $form_data,array $basket_data){
             $arr = [];
             $arr['fio'] = $form_data['fio'];
             $arr['address'] = $form_data['address'];
             $arr['phone'] = $form_data['phone'];
-             $arr['email'] = $form_data['email'];
+            $arr['email'] = $form_data['email'];
             $arr['created_at'] = date("d-m-Y H:i:s");   
 
             $arr['products'] = $basket_data;

@@ -1,24 +1,28 @@
 <?php
-
 namespace App\Controllers;
-use App\Views\ProductTemplate;
+
 use App\Models\Product;
+use App\Views\ProductTemplate;
+use App\Config\Config;
+use App\Services\DatabaseStorage;
+use App\Services\FileStorage;
 
-
-class ProductController
-{
-    public function get($id): string 
+class ProductController {
+    public function get($id = null): string 
     {
-        // MODEL CREATION
-        $model = new Product();
-        $data = $model->loadData();
-        
-        // DOES THE KEY EXIST AT ALL?
-        if ($data && isset($data[$id])) {
-            $productData = $data[$id];
-            return ProductTemplate::getCardTemplate($productData);
+        if (Config::STORAGE_TYPE == Config::TYPE_FILE) {
+            $serviceStorage = new FileStorage();
+        } else {
+            $serviceStorage = new DatabaseStorage();
         }
-        // IMPLEMENT THIS CHECK LATER
-        // return '<div class="alert alert-danger">Товар с ID ' . $id . ' не найден</div>';
+        $model = new Product($serviceStorage, Config::FILE_PRODUCTS, Config::FILE_ORDERS);
+
+        $data = $model->loadData();
+        if ($id) {
+            $data = $data[$id-1];
+            return ProductTemplate::getCardTemplate($data);
+        } else {
+            return ProductTemplate::getCatalogue($data);            
+        }
     }
-}  
+}
